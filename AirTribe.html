@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="Aircss.css">
+</head>
+
+<body>
+    <div id="sectionHome">
+        <div class="bg-container d-flex flex-row">
+            <div class="d-flex flex-row">
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-row">
+                        <button class="NotS_button">Not Started</button>
+                        <button id="notStartedCount" class="count_button">3</button>
+                        <button class="dotted_button">...+</button>
+                    </div>
+                    <div class="bg-container-2 d-flex flex-column" id="notStartedCards">
+                        <button class="card_btn d-flex flex-start" onclick="editCardName(this)">Card 4</button>
+                        <button class="card_btn d-flex flex-start" onclick="editCardName(this)">Card 1</button>
+                        <button class="card_btn d-flex flex-start" onclick="editCardName(this)">Card 5</button>
+                        <button class="add_btn d-flex flex-start" onclick="addNewCard('notStartedCards')">+ New</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IN PROGRESS COLUMN -->
+            <div class="d-flex flex-row">
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-row">
+                        <button class="InPro_button">In Progress</button>
+                        <button id="inProgressCount" class="count_button">2</button>
+                        <button class="dotted_button">...+</button>
+                    </div>
+                    <div class="bg-container-2 d-flex flex-column" id="inProgressCards">
+                        <button class="card_btn d-flex flex-start" onclick="editCardName(this)">Card 2</button>
+                        <button class="add_btn d-flex flex-start" onclick="addNewCard('inProgressCards')">+ New</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- COMPLETED COLUMN -->
+            <div class="d-flex flex-row">
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-row">
+                        <button class="comp_button">Completed</button>
+                        <button id="completedCount" class="count_button">1</button>
+                        <button class="dotted_button">... +</button>
+                    </div>
+                    <div class="bg-container-2 d-flex flex-column" id="completedCards">
+                        <button class="card_btn d-flex flex-start" onclick="editCardName(this)">Card 3</button>
+                        <button class="add_btn d-flex flex-start" onclick="addNewCard('completedCards')">+ New</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- new page -->
+    <div id="sectionChange" style="display: none;">
+        <div class="bg-container-2">
+            <input type="text" id="newCardName">
+            <button class="btn btn-primary" onclick="saveNewCardName()">Save</button>
+            <button class="btn btn-danger" onclick="deleteCard()">Delete</button>
+        </div>
+    </div>
+
+    <!-- java Script-->
+    <script>
+        var editedCard; // Global variable to store the edited card
+
+        function editCardName(button) {
+            editedCard = button; // Store the edited card button
+            var cardName = button.textContent;
+            document.getElementById('newCardName').value = cardName;
+            display('sectionChange');
+        }
+
+        function saveNewCardName() {
+            var newCardName = document.getElementById('newCardName').value;
+            editedCard.textContent = newCardName; // Update the text content of the edited card
+            display('sectionHome');
+        }
+
+        function addNewCard(containerId) {
+            var container = document.getElementById(containerId);
+            var addButton = container.lastElementChild; // Get the last button
+
+            // Move the add button to the end of the container
+            container.appendChild(addButton);
+
+            // Count the number of existing cards in all containers
+            var existingCardCount = document.querySelectorAll('.card_btn').length;
+
+            // Create a new card button
+            var newCard = document.createElement('button');
+            newCard.className = 'card_btn d-flex flex-start';
+            newCard.draggable = true;
+            newCard.textContent = 'Card ' + (existingCardCount + 1);
+            newCard.addEventListener('click', function() {
+                editCardName(this); // Allow editing the newly created card
+            });
+
+            // Append the new card button before the add button
+            container.insertBefore(newCard, addButton);
+
+            // Update the card count for the respective column
+            updateCardCount(containerId);
+        }
+
+        function deleteCard() {
+            var confirmation = confirm("Are you sure you want to delete this card?");
+            if (confirmation) {
+                editedCard.parentNode.removeChild(editedCard); // Remove the edited card
+                display('sectionHome');
+
+                // Update the card count for the respective column
+                var containerId = editedCard.parentNode.id;
+                updateCardCount(containerId);
+            }
+        }
+
+        function updateCardCount(containerId) {
+            var cardCount = document.getElementById(containerId).childElementCount - 1;
+            document.getElementById(containerId + 'Count').textContent = cardCount;
+        }
+
+        function display(id) {
+            var sectionHome = document.getElementById('sectionHome');
+            var sectionChange = document.getElementById('sectionChange');
+            if (id === 'sectionHome') {
+                sectionHome.style.display = 'block';
+                sectionChange.style.display = 'none';
+            } else {
+                sectionHome.style.display = 'none';
+                sectionChange.style.display = 'block';
+            }
+        }
+    </script>
+    <script type="text

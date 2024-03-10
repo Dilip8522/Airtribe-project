@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+
+.bg-container {
+    background-color: #ffffff;
+    height: 100vh;
+    background-size: cover;
+    margin: 5px;
+}
+
+.bg-container-2 {
+    background-color: white;
+    height: 30vh;
+    width: 30vh;
+    background-size: cover;
+}
+
+.NotS_button {
+    border-width: 0px;
+    background-color: pink;
+    color: black;
+    /* margin-right: 50px; */
+}
+
+.count_button{
+    border-width: 0px;
+    background-color: #ffffff;
+    color: #CCD3D7;
+    font-size: 15px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+.dotted_button {
+    border-width: 0px;
+    background-color: #ffffff;
+    color: #CCD3D7;
+    font-size: 25px;
+    margin-left: 50px;
+}
+
+.InPro_button {
+    border-width: 0px;
+    background-color: lightyellow;
+    color: black;
+    /* margin-right: 50px; */
+}
+
+.comp_button {
+    border-width: 0px;
+    background-color: lightblue;
+    color: black;
+    /* margin-right: 50px; */
+}
+
+.card_btn {
+    border-width: 0px;
+    background-color: #ffffff;
+    color: black;
+    padding: 10px;
+    margin: 5px;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: "Roboto";
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.add_btn {
+    border-width: 0px;
+    background-color: #ffffff;
+    color: #CCD3D7;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.bg-container-2{
+    background-color: #ffffff;
+    height: 100vh;
+    background-size: cover;
+    margin: 5px;
+    text-align: center;
+}
